@@ -29,3 +29,14 @@ h3 {
     padding: 0;
     margin: 10px 0 2px 0;
 }
+
+table {
+    margin: 2% auto;
+    border-collapse: collapse;
+}
+#table_game {
+    position: relative;
+    font-size: 120px;
+    margin: 1% auto;
+    border-collapse: collapse;
+}
