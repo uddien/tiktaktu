@@ -22,6 +22,7 @@ h2 {
     margin: 0;
 
 }
+
 h3 {
     font-size: 1.1em;
     text-decoration: underline;
@@ -34,9 +35,28 @@ table {
     margin: 2% auto;
     border-collapse: collapse;
 }
+
 #table_game {
     position: relative;
     font-size: 120px;
     margin: 1% auto;
     border-collapse: collapse;
+}
+
+.td_game {
+    border: 4px solid rgb(230, 230, 230);
+    width: 90px;
+    height: 90px;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.fixed {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
 }
