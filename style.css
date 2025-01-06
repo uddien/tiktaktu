@@ -60,3 +60,16 @@ table {
     overflow: hidden;
     cursor: pointer;
 }
+
+.td_list {
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.th_list {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;
+}
