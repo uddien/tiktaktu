@@ -73,3 +73,20 @@ table {
     text-align: center;
     text-decoration: underline;
 }
+
+#restart {
+    font-size: 3em;
+    width: 1em;
+    height: 0.9em;
+    cursor: pointer;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.x {
+    color: darksalmon;
+    position: relative;
+    top: -8px;
+    font-size: 1.2em;
+    cursor: default;
+}
