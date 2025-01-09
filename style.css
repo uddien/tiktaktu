@@ -132,3 +132,14 @@ table {
     margin: 0;
     padding: 0;
 }
+
+/* close button for modal dialog */
+.close {
+    color: rgb(170, 170, 170);
+    float: right;
+    position: relative;
+    top: -25px;
+    right: -10px;
+    font-size: 34px;
+    font-weight: bold;
+}
