@@ -150,3 +150,7 @@ table {
     text-decoration: none;
     cursor: pointer;
 }
+
+.win-color {
+    background-color: rgb(240, 240, 240);
+}
