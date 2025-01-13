@@ -345,3 +345,117 @@ function cellClicked(id) {
     }
     return true;
 }
+
+// Executed when player hits restart button.
+// ask should be true if we should ask users if they want to play as X or O
+function restartGame(ask) {
+    if (moves > 0) {
+        var response = confirm("Are you sure you want to start over?");
+        if (response === false) {
+            return;
+        }
+    }
+    gameOver = false;
+    moves = 0;
+    winner = 0;
+    whoseTurn = x;
+    myGrid.reset();
+    for (var i = 0; i <= 8; i++) {
+        var id = "cell" + i.toString();
+        document.getElementById(id).innerHTML = "";
+        document.getElementById(id).style.cursor = "pointer";
+        document.getElementById(id).classList.remove("win-color");
+    }
+    if (ask === true) {
+        // setTimeout(assignRoles, 200);
+        setTimeout(showOptions, 200);
+    } else if (whoseTurn == computer) {
+        setTimeout(makeComputerMove, 800);
+    }
+}
+
+// The core logic of the game AI:
+function makeComputerMove() {
+    // debugger;
+    if (gameOver) {
+        return false;
+    }
+    var cell = -1,
+        myArr = [],
+        corners = [0, 2, 6, 8];
+    if (moves >= 3) {
+        cell = myGrid.getFirstWithTwoInARow(computer);
+        if (cell === false) {
+            cell = myGrid.getFirstWithTwoInARow(player);
+        }
+        if (cell === false) {
+            if (myGrid.cells[4] === 0 && difficulty == 1) {
+                cell = 4;
+            } else {
+                myArr = myGrid.getFreeCellIndices();
+                cell = myArr[intRandom(0, myArr.length - 1)];
+            }
+        }
+        // Avoid a catch-22 situation:
+        if (moves == 3 && myGrid.cells[4] == computer && player == x && difficulty == 1) {
+            if (myGrid.cells[7] == player && (myGrid.cells[0] == player || myGrid.cells[2] == player)) {
+                myArr = [6, 8];
+                cell = myArr[intRandom(0, 1)];
+            }
+            else if (myGrid.cells[5] == player && (myGrid.cells[0] == player || myGrid.cells[6] == player)) {
+                myArr = [2, 8];
+                cell = myArr[intRandom(0, 1)];
+            }
+            else if (myGrid.cells[3] == player && (myGrid.cells[2] == player || myGrid.cells[8] == player)) {
+                myArr = [0, 6];
+                cell = myArr[intRandom(0, 1)];
+            }
+            else if (myGrid.cells[1] == player && (myGrid.cells[6] == player || myGrid.cells[8] == player)) {
+                myArr = [0, 2];
+                cell = myArr[intRandom(0, 1)];
+            }
+        }
+        else if (moves == 3 && myGrid.cells[4] == player && player == x && difficulty == 1) {
+            if (myGrid.cells[2] == player && myGrid.cells[6] == computer) {
+                cell = 8;
+            }
+            else if (myGrid.cells[0] == player && myGrid.cells[8] == computer) {
+                cell = 6;
+            }
+            else if (myGrid.cells[8] == player && myGrid.cells[0] == computer) {
+                cell = 2;
+            }
+            else if (myGrid.cells[6] == player && myGrid.cells[2] == computer) {
+                cell = 0;
+            }
+        }
+    } else if (moves === 1 && myGrid.cells[4] == player && difficulty == 1) {
+        // if player is X and played center, play one of the corners
+        cell = corners[intRandom(0, 3)];
+    } else if (moves === 2 && myGrid.cells[4] == player && computer == x && difficulty == 1) {
+        // if player is O and played center, take two opposite corners
+        if (myGrid.cells[0] == computer) {
+            cell = 8;
+        }
+        else if (myGrid.cells[2] == computer) {
+            cell = 6;
+        }
+        else if (myGrid.cells[6] == computer) {
+            cell = 2;
+        }
+        else if (myGrid.cells[8] == computer) {
+            cell = 0;
+        }
+    } else if (moves === 0 && intRandom(1, 10) < 8) {
+        // if computer is X, start with one of the corners sometimes
+        cell = corners[intRandom(0, 3)];
+    } else {
+        // choose the center of the board if possible
+        if (myGrid.cells[4] === 0 && difficulty == 1) {
+            cell = 4;
+        } else {
+            myArr = myGrid.getFreeCellIndices();
+            cell = myArr[intRandom(0, myArr.length - 1)];
+        }
+    }
+}
