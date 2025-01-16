@@ -479,3 +479,33 @@ function makeComputerMove() {
         whoseTurn = player;
     }
 }
+
+// Check if the game is over and determine winner
+function checkWin() {
+    winner = 0;
+
+    // rows
+    for (var i = 0; i <= 2; i++) {
+        var row = myGrid.getRowValues(i);
+        if (row[0] > 0 && row[0] == row[1] && row[0] == row[2]) {
+            if (row[0] == computer) {
+                score.computer++;
+                winner = computer;
+                // console.log("computer wins");
+            } else {
+                score.player++;
+                winner = player;
+                // console.log("player wins");
+            }
+            // Give the winning row/column/diagonal a different bg-color
+            var tmpAr = myGrid.getRowIndices(i);
+            for (var j = 0; j < tmpAr.length; j++) {
+                var str = "cell" + tmpAr[j];
+                document.getElementById(str).classList.add("win-color");
+            }
+            setTimeout(endGame, 1000, winner);
+            return winner;
+        }
+    }
+
+}
