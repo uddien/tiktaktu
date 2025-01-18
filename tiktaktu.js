@@ -532,4 +532,29 @@ function checkWin() {
         }
     }
 
+    // diagonals
+    for (i = 0; i <= 1; i++) {
+        var diagonal = myGrid.getDiagValues(i);
+        if (diagonal[0] > 0 && diagonal[0] == diagonal[1] && diagonal[0] == diagonal[2]) {
+            if (diagonal[0] == computer) {
+                score.computer++;
+                winner = computer;
+                // console.log("computer wins");
+            } else {
+                score.player++;
+                winner = player;
+                // console.log("player wins");
+            }
+            // Give the winning row/column/diagonal a different bg-color
+            var tmpAr = myGrid.getDiagIndices(i);
+            for (var j = 0; j < tmpAr.length; j++) {
+                var str = "cell" + tmpAr[j];
+                document.getElementById(str).classList.add("win-color");
+            }
+            setTimeout(endGame, 1000, winner);
+            return winner;
+        }
+    }
+
+
 }
