@@ -556,5 +556,15 @@ function checkWin() {
         }
     }
 
+     // If we haven't returned a winner by now, if the board is full, it's a tie
+     var myArr = myGrid.getFreeCellIndices();
+     if (myArr.length === 0) {
+         winner = 10;
+         score.ties++;
+         endGame(winner);
+         return winner;
+     }
+ 
+     return winner;
 
 }
