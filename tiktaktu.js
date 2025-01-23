@@ -597,4 +597,28 @@ function checkWin() {
         }
     }
 
+    // columns
+    for (i = 0; i <= 2; i++) {
+        var col = myGrid.getColumnValues(i);
+        if (col[0] > 0 && col[0] == col[1] && col[0] == col[2]) {
+            if (col[0] == computer) {
+                score.computer++;
+                winner = computer;
+                // console.log("computer wins");
+            } else {
+                score.player++;
+                winner = player;
+                // console.log("player wins");
+            }
+            // Give the winning row/column/diagonal a different bg-color
+            var tmpAr = myGrid.getColumnIndices(i);
+            for (var j = 0; j < tmpAr.length; j++) {
+                var str = "cell" + tmpAr[j];
+                document.getElementById(str).classList.add("win-color");
+            }
+            setTimeout(endGame, 1000, winner);
+            return winner;
+        }
+    }
+
 }
